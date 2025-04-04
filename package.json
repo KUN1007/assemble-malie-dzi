@@ -1,0 +1,24 @@
+{
+  "name": "assemble-malie-dzi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "de": "esno assemble.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "esno": "^4.8.0",
+    "fs-extra": "^11.3.0",
+    "path": "^0.12.7",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.14.0"
+  }
+}
