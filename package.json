@@ -1,24 +1,47 @@
 {
   "name": "assemble-malie-dzi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "de": "esno assemble.ts"
+  "version": "1.0.1",
+  "description": "A tool to assemble malie engine layers.",
+  "main": "dist/main.js",
+  "bin": {
+    "dzi-assembler": "dist/main.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "build": "bumpp && tsx src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pkg": "pnpm build && pkg . --targets node22-linux-x64,node22-macos-x64,node22-win-x64",
+    "dev": "esno assemble.ts"
+  },
+  "keywords": [
+    "dzi",
+    "image",
+    "assembler",
+    "cli",
+    "sharp"
+  ],
+  "author": "KUN1007 <kun@soft.moe>",
+  "license": "MIT",
   "packageManager": "pnpm@10.4.1",
   "dependencies": {
+    "commander": "^13.1.0",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",
     "path": "^0.12.7",
-    "sharp": "^0.33.5"
+    "sharp": "^0.34.0",
+    "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.14.0"
+    "@types/node": "^22.14.0",
+    "bumpp": "^10.1.0"
+  },
+  "pkg": {
+    "scripts": [
+      "dist/**/*.js"
+    ],
+    "assets": [
+      "event/**/*"
+    ],
+    "outputPath": "build"
   }
 }
