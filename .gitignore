@@ -1,4 +1,6 @@
 node_modules
 
+rust_impl/target
+
 # malie engine decrypt source dir
 event

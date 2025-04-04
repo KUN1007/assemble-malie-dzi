@@ -1,13 +1,34 @@
 import fs from 'fs-extra'
 import path from 'path'
 import sharp from 'sharp'
+import { Command } from 'commander'
 
-const EVENT_DIR = path.resolve(__dirname, 'event')
-const TEX_DIR = path.join(EVENT_DIR, 'tex')
-const DIST_DIR = path.join(EVENT_DIR, 'dist')
+const program = new Command()
+
+program
+  .option('--event-dir <path>', 'Path to event directory (contains .dzi files)')
+  .option('--tex-dir <path>', 'Path to tex directory (contains tiles)')
+  .option('--output-dir <path>', 'Path to output directory')
+  .option(
+    '--enable-lower-layers <boolean>',
+    'Enable lower layers (true/false)',
+    'true'
+  )
+  .parse(process.argv)
+
+const options = program.opts()
+
+// Validate options
+if (!options.eventDir || !options.texDir || !options.outputDir) {
+  console.error('Missing required arguments.')
+  program.help()
+}
 
 // layer_1 is original size, layer_2 is original size / 0.5，layer_3 is original size / 0.25 ...
-const ENABLE_LOWER_LAYERS = true
+const ENABLE_LOWER_LAYERS = options.enableLowerLayers === 'true'
+const EVENT_DIR = path.resolve(process.cwd(), options.eventDir)
+const TEX_DIR = path.resolve(process.cwd(), options.texDir)
+const DIST_DIR = path.resolve(process.cwd(), options.outputDir)
 
 const parseDzi = async (filePath: string) => {
   const content = await fs.readFile(filePath, 'utf-8')
@@ -149,6 +170,9 @@ const processAllDziFiles = async () => {
   console.log('Assemble all cgs successfully!')
 }
 
-processAllDziFiles().catch((err) => {
-  console.error('ERROR OCCURRENT', err)
-})
+if (require.main === module) {
+  processAllDziFiles().catch((err) => {
+    console.error('Error occurred:', err)
+    process.exit(1)
+  })
+}
