@@ -1,0 +1,11 @@
+[package]
+name = "rust_impl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1", features = ["fs", "macros", "rt-multi-thread"] }
+anyhow = "1.0"
+image = "0.25"
+serde = { version = "1.0", features = ["derive"] }
+clap = { version = "4.5.32", features = ["derive"] }
